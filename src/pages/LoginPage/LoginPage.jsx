@@ -30,7 +30,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <title>Login Now</title>
+      <title>Login Now - SmartDeals</title>
 
       <main>
         <section className="p-5 my-6 min-h-[calc(100dvh-65px)] grid place-items-center">
@@ -40,7 +40,7 @@ const LoginPage = () => {
           >
             <fieldset className="fieldset text-base p-7 space-y-2">
               <div className="text-center space-y-2">
-                <h1 className="font-bold text-2xl">Login</h1>
+                <h1 className="font-bold text-2xl">Login Now</h1>
 
                 <p>
                   Don't have an account?{" "}

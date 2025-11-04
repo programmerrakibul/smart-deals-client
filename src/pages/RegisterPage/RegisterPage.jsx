@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
   return (
     <>
-      <title>Register Now</title>
+      <title>Register Now - SmartDeals</title>
 
       <main>
         <section className="p-5 my-6 min-h-[calc(100dvh-65px)] grid place-items-center">

@@ -176,7 +176,11 @@ const ProductDetails = () => {
               </p>
               <p>
                 <strong>Status: </strong>
-                <span className="badge badge-warning text-neutral capitalize">
+                <span
+                  className={`badge ${
+                    status === "pending" ? "badge-warning" : "badge-success"
+                  } text-neutral capitalize`}
+                >
                   {status === "pending" ? "on sale" : status}
                 </span>
               </p>

@@ -1,9 +1,10 @@
-import axios from "axios";
 import Container from "../../components/Container/Container";
 import useAuthInfo from "../../hooks/useAuthInfo";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const CreateProductPage = () => {
   const { currentUser } = useAuthInfo();
+  const secureAxios = useAxiosSecure();
 
   const handleCreateProduct = async (e) => {
     e.preventDefault();
@@ -13,20 +14,8 @@ const CreateProductPage = () => {
     const status = "pending";
     const newProduct = { ...formData, created_at, status };
 
-    console.log(newProduct);
-
     try {
-      const { data } = await axios.post(
-        "http://localhost:3000/api/products",
-        newProduct,
-        {
-          headers: {
-            authorization: `bearer ${currentUser.accessToken}`,
-          },
-        }
-      );
-
-      console.log(data);
+      await secureAxios.post("/products", newProduct);
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +23,7 @@ const CreateProductPage = () => {
 
   return (
     <>
-      <title>Create your Product</title>
+      <title>Create your Product - SmartDeals</title>
 
       <section className="py-7 my-5">
         <Container className="grid place-items-center min-h-[60dvh]">

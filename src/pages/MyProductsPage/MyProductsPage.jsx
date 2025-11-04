@@ -93,7 +93,7 @@ const MyProductsPage = () => {
 
   return (
     <>
-      <title>My Products</title>
+      <title>My Products - SmartDeals</title>
 
       <section className="py-6 my-5 min-h-[70dvh]">
         <Container className="space-y-7">
@@ -137,7 +137,13 @@ const MyProductsPage = () => {
                       <p className="text-nowrap">৳ {item.price_max}</p>
                     </td>
                     <td>
-                      <span className="badge badge-warning capitalize">
+                      <span
+                        className={`badge ${
+                          item.status === "pending"
+                            ? "badge-warning"
+                            : "badge-success"
+                        }  capitalize`}
+                      >
                         {item.status}
                       </span>
                     </td>
@@ -145,6 +151,7 @@ const MyProductsPage = () => {
                       <div className="flex items-center justify-between gap-1.5 w-fit">
                         <button
                           onClick={() => editModalRef.current.show()}
+                          disabled={item.status === "sold"}
                           className="btn btn-primary btn-outline btn-sm"
                         >
                           Edit
@@ -238,12 +245,11 @@ const MyProductsPage = () => {
                         </button>
 
                         <button
-                          onClick={() => {
-                            handleClickSold(item._id);
-                          }}
+                          onClick={() => handleClickSold(item._id)}
+                          disabled={item.status !== "pending"}
                           className="btn btn-success btn-outline btn-sm"
                         >
-                          Make Sold
+                          {item.status === "pending" ? "Make Sold" : "Sold"}
                         </button>
 
                         <dialog

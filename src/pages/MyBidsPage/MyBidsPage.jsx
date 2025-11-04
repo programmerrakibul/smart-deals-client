@@ -39,7 +39,7 @@ const MyBidsPage = () => {
 
   return (
     <>
-      <title>My Bids</title>
+      <title>My Bids - SmartDeals</title>
 
       <section className="py-6 my-5 min-h-[70dvh]">
         <Container className="space-y-7">

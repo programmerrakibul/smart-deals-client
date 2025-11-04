@@ -1,8 +1,9 @@
-import axios from "axios";
 import { useLocation } from "react-router";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const BidsTable = ({ allBids, setAllBids, productId, setProducts }) => {
   const { pathname } = useLocation();
+  const secureAxios = useAxiosSecure();
 
   const handleAccept = async (id) => {
     try {
@@ -18,20 +19,17 @@ const BidsTable = ({ allBids, setAllBids, productId, setProducts }) => {
         status: "sold",
       };
 
-      const { data } = await axios.put(
-        `http://localhost:3000/api/bids/product/${productId}`,
+      const { data } = await secureAxios.put(
+        `/bids/product/${productId}`,
         reject
       );
 
       if (data.modifiedCount) {
-        const { data } = await axios.put(
-          `http://localhost:3000/api/bids/${id}`,
-          accept
-        );
+        const { data } = await secureAxios.put(`/bids/${id}`, accept);
 
         if (data.modifiedCount) {
-          const { data } = await axios.put(
-            `http://localhost:3000/api/products/${productId}`,
+          const { data } = await secureAxios.put(
+            `/products/${productId}`,
             sold
           );
 
@@ -62,12 +60,8 @@ const BidsTable = ({ allBids, setAllBids, productId, setProducts }) => {
       const status = {
         status: "rejected",
       };
-      const { data } = await axios.put(
-        `http://localhost:3000/api/bids/${id}`,
-        status
-      );
 
-      console.log(data);
+      const { data } = await secureAxios.put(`/bids/${id}`, status);
 
       if (data.modifiedCount) {
         const updated = allBids.map((item) => {
@@ -120,10 +114,16 @@ const BidsTable = ({ allBids, setAllBids, productId, setProducts }) => {
 
                 <td>
                   <p className="capitalize">
-                    {item.status === "pending" ? (
+                    {item.status === "pending" && (
                       <span className="badge badge-warning">{item.status}</span>
-                    ) : (
+                    )}
+
+                    {item.status === "accepted" && (
                       <span className="badge badge-success">{item.status}</span>
+                    )}
+
+                    {item.status === "rejected" && (
+                      <span className="badge badge-error">{item.status}</span>
                     )}
                   </p>
                 </td>
