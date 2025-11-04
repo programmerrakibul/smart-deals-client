@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  --color-primary: #632ee3;
+  --color-secondary: #9f62f2;
+  --color-success: #4caf50;
+  --color-error: #ff3d00;
+  --color-warning: #ffc107;
+  --color-neutral: #001931;
+  --color-accent: #d9d9d9;
+  --color-base-100: #f5f5f5;
+}
+
+* {
+  @apply font-['Inter'];
+}
+
+a.navLinks {
+  @apply capitalize font-semibold opacity-90 bg-transparent px-1;
+}
+
+a.navLinks.active,
+a.navLinks:hover {
+  @apply text-primary;
+}
+
+.input, .textarea {
+  @apply w-full focus:border-primary focus:outline-primary bg-transparent text-gray-600;
+}
+
+.label {
+  @apply font-semibold text-neutral;
+}
