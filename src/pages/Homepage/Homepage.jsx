@@ -42,24 +42,18 @@ const Homepage = () => {
               sellers — all in one place!
             </p>
 
-            <div className="join w-full max-w-md">
-              <input
-                type="search"
-                name="search"
-                className="input join-item flex-1 focus:outline-none focus:border-primary"
-                placeholder="search For Products, Categories..."
-              />
-              <button className="btn btn-primary join-item rounded-r-full">
-                <CiSearch size={20} color="white" />
-              </button>
-            </div>
-
             <div className="space-x-3.5">
-              <button className="btn btn-primary text-white">
+              <button
+                onClick={() => navigate("/all-products")}
+                className="btn btn-primary text-white"
+              >
                 Watch All Products
               </button>
 
-              <button className="btn btn-outline btn-primary">
+              <button
+                onClick={() => navigate("/create-product")}
+                className="btn btn-outline btn-primary"
+              >
                 Post an Product
               </button>
             </div>

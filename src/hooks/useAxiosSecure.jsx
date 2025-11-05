@@ -3,16 +3,18 @@ import useAuthInfo from "./useAuthInfo";
 import { useEffect } from "react";
 
 const secureInstance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://smart-deals-api-server-neon.vercel.app/api",
 });
 
 const useAxiosSecure = () => {
-  const { currentUser, signOutUser } = useAuthInfo();
+  const { signOutUser } = useAuthInfo();
 
   useEffect(() => {
     const requestInterceptor = secureInstance.interceptors.request.use(
       (config) => {
-        config.headers.authorization = `Bearer ${currentUser.accessToken}`;
+        config.headers.authorization = `Bearer ${localStorage.getItem(
+          "token"
+        )}`;
 
         return config;
       }
@@ -39,7 +41,7 @@ const useAxiosSecure = () => {
       secureInstance.interceptors.request.eject(requestInterceptor);
       secureInstance.interceptors.response.eject(responseInterceptor);
     };
-  }, [currentUser.accessToken, signOutUser]);
+  }, [signOutUser]);
 
   return secureInstance;
 };
