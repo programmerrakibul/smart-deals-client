@@ -7,19 +7,39 @@ const secureInstance = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { currentUser } = useAuthInfo();
+  const { currentUser, signOutUser } = useAuthInfo();
 
   useEffect(() => {
-    const interceptor = secureInstance.interceptors.request.use((config) => {
-      config.headers.authorization = `Bearer ${currentUser.accessToken}`;
+    const requestInterceptor = secureInstance.interceptors.request.use(
+      (config) => {
+        config.headers.authorization = `Bearer ${currentUser.accessToken}`;
 
-      return config;
-    });
+        return config;
+      }
+    );
+
+    const responseInterceptor = secureInstance.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      (error) => {
+        console.log(error);
+        const status = error.status;
+
+        if (status === 401 || status === 403) {
+          console.log("User Logged out");
+          signOutUser();
+        }
+
+        return error;
+      }
+    );
 
     return () => {
-      secureInstance.interceptors.request.eject(interceptor);
+      secureInstance.interceptors.request.eject(requestInterceptor);
+      secureInstance.interceptors.response.eject(responseInterceptor);
     };
-  }, [currentUser.accessToken]);
+  }, [currentUser.accessToken, signOutUser]);
 
   return secureInstance;
 };
